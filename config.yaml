@@ -1,0 +1,71 @@
+# ComplianceGuard AI Configuration
+
+agents:
+  regulation_monitor:
+    model: "gemini-2.0-flash-thinking-exp"
+    tools: ["google_search", "regulation_database"]
+    polling_interval: 3600
+    
+  compliance_analyzer:
+    model: "gemini-2.0-flash-exp"
+    tools: ["gap_analyzer", "risk_calculator"]
+    
+  risk_assessor:
+    model: "gemini-2.0-pro-exp"
+    tools: ["risk_scorer", "historical_analyzer"]
+    
+  report_generator:
+    model: "gemini-2.0-flash-exp"
+    tools: ["report_template", "data_formatter"]
+
+memory:
+  memory_bank:
+    max_entries: 10000
+    compaction_strategy: "semantic"
+    retention_days: 365
+    
+  sessions:
+    timeout_minutes: 60
+    max_sessions: 1000
+
+tools:
+  google_search:
+    api_key: "${GOOGLE_SEARCH_API_KEY}"
+    max_results: 10
+    
+  regulation_database:
+    endpoints:
+      gdpr: "https://api.gdpr-regulations.com/v1"
+      hipaa: "https://api.hipaa-guidelines.gov/v1"
+      sox: "https://api.sec.gov/sox/v1"
+      
+  gap_analyzer:
+    confidence_threshold: 0.8
+    max_gaps_per_analysis: 50
+
+deployment:
+  cloud_run:
+    region: "us-central1"
+    min_instances: 1
+    max_instances: 10
+    cpu: 2
+    memory: "4Gi"
+    
+  observability:
+    logging_level: "INFO"
+    metrics_enabled: true
+    tracing_enabled: true
+
+compliance:
+  regulations:
+    - "GDPR"
+    - "HIPAA"
+    - "SOX"
+    - "CCPA"
+    - "PCI-DSS"
+    
+  risk_levels:
+    critical: 0.9
+    high: 0.7
+    medium: 0.5
+    low: 0.3
